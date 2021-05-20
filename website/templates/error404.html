@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../static/css/styles.css">
+
+    <title>{% block title %}Page Not Found{% endblock %}</title>
+  </head>
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" align="center" id="navbar">
+          <div class="navbar-nav">
+            <h1 class="nav-item nav-link">404 </h1>
+          </div>
+        </div>
+      </nav>
+    
+      <h3 align="center">Page Not Found</h3>
+      <div class="container">
+        <p>What you were looking for is just not there.</p>
+        <p><a href="{{ url_for('views.home') }}">please go somewhere nice</a>
+      </div>
+    <!-- Footer -->
+    <footer class="navbar navbar-static-bottom navbar-expand-lg navbar-dark bg-dark" id="footer">
+      <div class="container">
+        <div>
+          <div class="row">
+            <div class="col">
+              <div class="footer-text">
+                <div class="d-flex">
+                    <h1 class="font-weight-bold mr-2 px-3" style="background-color:#9A9DA0"> JO </h1>
+                    <h1 style="color: #9A9DA0">Dev</h1>
+                </div>
+                <p style="color:#9A9DA0">Civil engineer, MEng, Software Developer. <br />Distributed under the MIT license terms.</p>
+                <div class="social mt-2 mb-3" style="color:#9A9DA0">
+                  <!--
+                  <i class="fa fa-facebook-official fa-lg">
+                  </i> <i class="fa fa-instagram fa-lg"></i>
+                  <i class="fa fa-twitter fa-lg"></i>
+                  <i class="fa fa-facebook"></i>
+                  -->
+                  <a class="fa fa-linkedin-square fa-lg" href="https://www.linkedin.com/in/oscar-gerena-656493115/"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
+    ></script>
+  </body>
+</html>
+  

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1 align="center">Retaining Walls Designs</h1>
+
+<ul class="list-group list-group-flush" id="designs">
+    {% for design in user.wall_designs %}
+    <li class="list-group-item">
+        <a  class="btn btn-light" href="/wall-designs/{{ design.id }}" role="button">
+        {{ design.design_name }}
+        </a>
+        <button type="button" class="close" onclick="deleteDesign({{ design.id }})">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        
+    </li>
+    {% endfor %}
+</ul>
+    <form method="POST">
+        <br/>
+        <input name="design-name" id="design-name"" class="form-control" placeholder="New design's name"></input>
+        <br />
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Add Design</button>
+        </div>
+    </form>
+
+{% endblock %}

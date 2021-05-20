@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% block title %}Retaining Wall{% endblock %}
+{% block content %}
+<h1 align="center">Retaining Wall</h1>
+
+<img src="../static/images/retaining_wall.svg" class="img-fluid" alt="Responsive image">
+
+    <form method="POST">
+        <h3>
+            <br/>
+            <span class="badge badge-info">Name: {{ design.design_name }}</span>
+            <br/>
+        </h3>
+        <p>The units can be in the metric system (kN and m) or in the imperial system (lb and ft)</p>
+        <h4>Materials properties</h4>
+        <div class="form-group">
+            <label for="gs">Material (concrete) unit weight (kN/m³)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required="required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="gs"
+                name="gs"
+                placeholder="Material (concrete) unit weight (kN/m³)"
+                value="{{ design.gs }}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="gb">Back soil unit weight (kN/m³)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required="required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="gb"
+                name="gb"
+                placeholder="Back soil unit weight (kN/m³)"
+                value="{{ design.gb }}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="phi">Soil friction angle (°)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required = "required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="phi"
+                name="phi"
+                placeholder="Soil friction angle (degrees)"
+                value="{{ design.phi }}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="bc">Bearing Capacity (kPa)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required = "required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="bc"
+                name="bc"
+                placeholder="Bearing Capacity (kPa)"
+                value="{{ design.bc }}"
+            />
+        </div>
+        <h4>Geometry values</h4> 
+        <div class="form-group">
+            <label for="bb">Retaining wall total width (m)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required = "required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="bb"
+                name="bb"
+                placeholder="Retaining wall total width (m)"
+                value="{{ design.bb }}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="bh">Toe high (m)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required = "required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="bh"
+                name="bh"
+                placeholder="toe high high (m)"
+                value="{{ design.bh }}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="p">Frontal toe length (m)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required = "required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="p"
+                name="p"
+                placeholder="Frontal toe length (m)"
+                value="{{ design.p }}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="H">Retaining wall total high (m)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required="required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="H"
+                name="H"
+                placeholder="Retaining wall total high (m)"
+                value="{{ design.H }}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="B">Wall thickness at the top (m)</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0"
+                required="required"
+                onkeypress="validate(event)" 
+                class="form-control"
+                id="B"
+                name="B"
+                placeholder="Wall thickness (m)"
+                value="{{ design.B }}"
+            />
+        </div>
+
+        <br />
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </div>
+    </form>
+
+    {% if results %}
+    <br/>
+    <h3>
+        <span class="badge badge-info">Results</span>
+    </h3>
+    <br/>
+    <!--------------------------------OverTurning-------------------------------------------->
+    <div class="row row-content border">
+        <p class="col-sm-12 border">
+            <strong>OverTurning</strong>
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            Stabilizing Moment
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['overturning_results']['stabilizing_moment'] }}
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            OverTurning Moment
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['overturning_results']['overTurning_moment'] }}
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            FS<sub>(OverTurning)</sub>
+            (FS<sub>(OverTurning)</sub>>2.5)?
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['overturning_results']['factor_of_safety_overturning'] }}
+            {% if results['overturning_results']['factor_of_safety_overturning'] > 2.5 %}
+                <span class="badge badge-success">Ok</span>
+            {% else %}
+                <span class="badge badge-danger">Error</span>
+            {% endif %}
+        </p>
+        <!--------------------------------Sliding--------------------------------------------->
+        <p class="col-sm-12 border">
+            <strong>Sliding</strong>
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            Frictional Resistance
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['sliding_results']['frictional_resistance'] }}
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            Sliding Force
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['sliding_results']['sliding_force'] }}
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            FS<sub>(Sliding)</sub>
+            (FS<sub>(Sliding)</sub>>1.5)?
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['sliding_results']['factor_of_safety_sliding'] }}
+            {% if results['sliding_results']['factor_of_safety_sliding'] > 1.5 %}
+                <span class="badge badge-success">Ok</span>
+            {% else %}
+                <span class="badge badge-danger">Error</span>
+            {% endif %}
+        </p>
+        <!--------------------------------Bearing Capacity-------------------------------------->
+        <p class="col-sm-12 border">
+            <strong>Bearing Capacity</strong>
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            Tension check at the heel a(m) <br />
+            (a>(Retaining wall total width)/3)
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['bearing_capacity_results']['a'] }}
+            {% if results['bearing_capacity_results']['a'] > design.bb/3 %}
+                <span class="badge badge-success">Ok</span>
+            {% else %}
+                <span class="badge badge-danger">Error</span>
+            {% endif %}
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            Bearing pressure at the toe
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['bearing_capacity_results']['bearing_pressure_at_the_toe'] }}
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            FS<sub>(BC)</sub>
+            (FS<sub>(BC)</sub>>1.0)?
+        </p>
+        <p class="col-sm-12 col-md-6 border">
+            {{ "%.2f" %results['bearing_capacity_results']['factor_of_safety_bearing_capacity'] }}
+            {% if results['bearing_capacity_results']['factor_of_safety_bearing_capacity'] > 1 %}
+                <span class="badge badge-success">Ok</span>
+            {% else %}
+                <span class="badge badge-danger">Error</span>
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+
+{% endblock %}
