@@ -21,8 +21,10 @@ def login():
                 return redirect(url_for("views.home"))
             else:
                 flash('Incorrect password, try again.', category='error')
+                return redirect(url_for("auth.login"))
         else:
             flash('Email does not exist.', category='error')
+            return redirect(url_for("auth.login"))
     elif request.method == 'GET':
         if current_user.is_authenticated:
             flash('Already logged', category='success')
