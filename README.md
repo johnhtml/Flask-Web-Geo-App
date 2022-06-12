@@ -1,5 +1,5 @@
 # Flask-Web-Geo-App
-An app capable of sign-up login and logout users. The users can manage their own Retaining Walls Designs --i.e. Geotechnical approach based on the Limit Equilibrium Method--, this procedure includes deletion and edition. 
+An app capable of sign-up login and logout users. The users can manage their own Retaining Walls Designs --i.e. Geotechnical approach based on the Limit Equilibrium Method--, this procedure includes deletion and edition of new projects. 
 
 The web app in desktop screen mode
 
